@@ -53,6 +53,9 @@ def checkword(guess, answer):
 
 
 def guessreply(checklist):
+    '''
+    Формирует строку ответа, состоящую из эмодзи разных цветов.
+    '''
     reply = ''
     for check in checklist:
         if check == 2:
@@ -65,14 +68,24 @@ def guessreply(checklist):
 
 
 def getanswer(gametype='new'):
+    '''
+    Возвращает загаданное слово.
+    :param gametype: тип игры (new - случайное слово, daily - новая игра)
+    '''
     if gametype == 'new':
         answer = chooseword()
     if gametype == 'daily':
         today = datetime.date.today()
         answer = chooseword(seed=today.toordinal())# в качестве сида передается порядковый номер сегодняшнего дня с 01.01.0001
+    else:
+        raise ValueError("Неправильный тип игры. Допустимы new, daily")
     return answer
 
 def addword(word : str):
+    '''
+    Добавляет слово в список предложений. Возвращает True, если слово добавлено успешно, иначе False.
+    :return: bool
+    '''
     alphabet = {'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я'}
     word = word.lower()
     if len(word) != 5:
